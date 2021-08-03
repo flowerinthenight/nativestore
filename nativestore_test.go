@@ -1,15 +1,18 @@
 package nativestore
 
 import (
-	"log"
 	"testing"
 )
 
 func TestSetGet(t *testing.T) {
-	return
-	url := "https://github.com/mobingi/gosdk"
-	Set("gosdk", url, "user", "password")
-	user, secret, err := Get("gosdk", url)
+	lbl := "nativestore"
+	url := "https://github.com/flowerinthenight/nativestore"
+	err := Set(lbl, url, "user", "password")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	user, secret, err := Get(lbl, url)
 	if err == nil {
 		if user != "user" {
 			t.Errorf("Expecting user, got %s", user)
@@ -19,6 +22,6 @@ func TestSetGet(t *testing.T) {
 			t.Errorf("Expecting password, got %s", secret)
 		}
 	} else {
-		log.Println("got error:", err)
+		t.Log("got error:", err)
 	}
 }
